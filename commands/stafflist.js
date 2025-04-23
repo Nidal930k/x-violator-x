@@ -1,23 +1,21 @@
-
 const fs = require('fs');
 const path = require('path');
 
+const STAFF_FILE = path.join(__dirname, '../data/staff.json');
+
 module.exports = {
   name: 'stafflist',
-  description: 'Affiche la liste des personnes avec la permission staff du bot',
   async execute(message) {
-    const filePath = path.join(__dirname, '../data/owners.json');
-
-    if (!fs.existsSync(filePath)) {
-      return message.reply("❌ Aucune liste trouvée.");
+    if (!fs.existsSync(STAFF_FILE)) {
+      return message.reply("📭 Aucun staff enregistré.");
     }
 
-    const data = JSON.parse(fs.readFileSync(filePath));
-    if (!data.owners || data.owners.length === 0) {
-      return message.reply("❌ Aucun owner ou staff enregistré.");
+    const staffList = JSON.parse(fs.readFileSync(STAFF_FILE));
+    if (staffList.length === 0) {
+      return message.reply("📭 Aucun staff enregistré.");
     }
 
-    const formatted = data.owners.map(id => `<@${id}>`).join("\n");
-    message.channel.send(`👑 Liste des personnes ayant les permissions du bot :\n${formatted}`);
+    const staffMentions = staffList.map(id => `<@${id}>`).join("\n");
+    message.channel.send(`📋 **Liste des staff de Violator :**\n${staffMentions}`);
   }
 };

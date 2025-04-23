@@ -1,18 +1,16 @@
+const fs = require('fs');
+const STAFF_FILE = './data/staff.json';
+
 module.exports = {
   name: 'clearwarns',
-  description: 'Commande clearwarns',
-  execute(message, args) {
-    const config = require("../config.json");
-    const allowedRoles = ['Admin', 'Staff', 'Modération'];
+  async execute(message, args) {
+    const staffList = fs.existsSync(STAFF_FILE) ? JSON.parse(fs.readFileSync(STAFF_FILE)) : [];
 
-    if (!config.owners.includes(message.author.id) &&
-        !message.member.roles.cache.some(role => allowedRoles.includes(role.name))) {
-      return message.reply("❌ Commande verrouillée. Seuls les agents de l’ordre Violator peuvent l’utiliser.");
+    if (!staffList.includes(message.author.id)) {
+      return message.reply("🚫 Tu n’as pas la permission d’utiliser cette commande.");
     }
 
-    const member = message.mentions.members.first();
-    if (!member) return message.reply("❌ Mentionne un membre.");
-
-    message.channel.send(`📁 Les avertissements de ${member} ont été effacés. Nouvelle chance.`);
+    // Ici tu ajoutes le vrai comportement de la commande
+    message.reply("✅ La commande `clearwarns` est maintenant sécurisée, ajoute ton code ici !");
   }
 };
