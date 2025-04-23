@@ -1,50 +1,23 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
-const fs = require('fs');
 require('dotenv').config();
+const fs = require('fs');
 
-const { prefix } = require('./config.json');
-
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildVoiceStates
-  ]
-});
-
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 client.commands = new Collection();
+
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  if (command.name) client.commands.set(command.name, command);
+  client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
-  console.log(`🔥 Violator est prêt à frapper. Connecté en tant que ${client.user.tag}`);
-});
-
 client.on('messageCreate', async message => {
-  if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const commandName = args.shift().toLowerCase();
-  const command = client.commands.get(commandName);
-  if (!command) return;
-
-  try {
-    await command.execute(message, args, client);
-  } catch (err) {
-    console.error(err);
-    message.reply("💥 Une erreur violente est survenue. Violator est en rage !");
+  if (message.author.bot || !message.content.startsWith('!')) return;
+  const args = message.content.slice(1).split(/ +/);
+  const command = args.shift().toLowerCase();
+  if (client.commands.has(command)) {
+    client.commands.get(command).execute(message, args);
   }
 });
 
 client.login(process.env.TOKEN);
-
-// === Keep alive server for Railway ===
-const express = require('express');
-const app = express();
-app.get("/", (req, res) => res.send("Violator bot actif 🚀"));
-app.listen(process.env.PORT || 3000, () => {
-  console.log("✅ Serveur Express actif pour Railway");
-});

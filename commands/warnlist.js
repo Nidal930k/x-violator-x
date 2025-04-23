@@ -1,22 +1,18 @@
-
 const fs = require('fs');
-const path = require('path');
+const WARNS_FILE = './data/warns.json';
 
 module.exports = {
   name: 'warnlist',
-  description: 'Affiche la liste des warns',
   async execute(message, args) {
-    const member = message.mentions.members.first();
-    if (!member) return message.reply("❗ Utilisation : !warnlist @user");
+    const user = message.mentions.users.first() || message.author;
+    const warns = fs.existsSync(WARNS_FILE) ? JSON.parse(fs.readFileSync(WARNS_FILE)) : {};
+    const userWarns = warns[user.id] || [];
 
-    const warnsFile = path.join(__dirname, '../data/warns.json');
-    let warns = fs.existsSync(warnsFile) ? JSON.parse(fs.readFileSync(warnsFile)) : {};
-
-    if (!warns[member.id] || warns[member.id].length === 0) {
+    if (userWarns.length === 0) {
       return message.reply("✅ Aucun warn trouvé pour cet utilisateur.");
     }
 
-    const list = warns[member.id].map((w, i) => `#${i+1} - ${w.reason} (par ${w.mod})`).join("\n");
-    message.channel.send(`⚠️ Warns pour ${member.user.tag} :\n${list}`);
+    const list = userWarns.map((warn, i) => `\`\`#${i + 1}\`\` - ${warn.reason} (par ${warn.moderator}, le ${new Date(warn.date).toLocaleString()})`).join("\n");
+    message.reply(`📋 Historique des warns pour **${user.tag}** :\n${list}`);
   }
 };

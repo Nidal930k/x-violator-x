@@ -13,12 +13,9 @@ module.exports = {
     const isOwner = owners.includes(member.id);
     const isStaff = staff.includes(member.id);
 
-    let result = `🔍 Vérification pour **${member.tag}** :
-`;
-    result += isOwner ? '👑 Est Owner du bot
-' : '';
-    result += isStaff ? '🛡️ Est membre du Staff
-' : '';
+    let result = `🔍 Vérification pour **${member.tag}** :\n`;
+    result += isOwner ? '👑 Est Owner du bot\n' : '';
+    result += isStaff ? '🛡️ Est membre du Staff\n' : '';
     if (!isOwner && !isStaff) result += '❌ N’a aucun rôle spécial.';
 
     message.reply(result);
