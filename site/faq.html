@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - Violator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .faq-section {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+    }
+    .faq h2 {
+      color: #ff2c2c;
+      text-align: center;
+    }
+    .faq-item {
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      background: #1a1a1a;
+      box-shadow: 0 0 5px #ff2c2c44;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+      background: #111;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      background: #222;
+      padding: 0 1rem;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding: 1rem;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.faq-question').forEach(el => {
+        el.addEventListener('click', () => {
+          el.parentElement.classList.toggle('open');
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Violator Logo" class="logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="features.html">Fonctionnalités</a></li>
+      <li><a href="commands.html">Commandes</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <main class="faq-section">
+    <section class="faq">
+      <h2>Foire aux questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">Comment inviter le bot sur mon serveur ?</div>
+        <div class="faq-answer">Clique sur le bouton “Inviter le bot” sur la page d’accueil, et connecte-toi avec ton compte Discord.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Le bot ne répond pas, que faire ?</div>
+        <div class="faq-answer">Vérifie qu’il a bien les permissions (voir les rôles dans les paramètres du serveur).</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Puis-je personnaliser les réponses du bot ?</div>
+        <div class="faq-answer">Pas encore, mais une mise à jour est prévue. Reste connecté au serveur support !</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Comment signaler un bug ou faire une suggestion ?</div>
+        <div class="faq-answer">Rejoins le serveur support Discord et ouvre un ticket !</div>
+      </div>
+    
+  <div class="faq-item">
+    <div class="faq-question">Violator est-il gratuit ?</div>
+    <div class="faq-answer">Oui, 100% gratuit. Et toujours vénère.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Puis-je changer les préfixes ou les permissions ?</div>
+    <div class="faq-answer">Pas pour l’instant, mais c’est prévu. Reste connecté sur le support Discord.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Est-ce que Violator fonctionne sur mobile ?</div>
+    <div class="faq-answer">Bien sûr ! Il est 100% compatible avec l’appli Discord mobile.</div>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Violator Bot. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

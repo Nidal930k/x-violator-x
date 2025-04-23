@@ -1,0 +1,195 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
+  color: #fff;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #111;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 50px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.nav-links a:hover {
+  color: #ff2c2c;
+}
+.hero {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(to right, #1e1e1e, #000);
+}
+.hero h1 {
+  font-size: 4rem;
+  color: #ff2c2c;
+}
+.slogan {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+.cta {
+  margin-top: 2rem;
+}
+.btn {
+  text-decoration: none;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
+.btn.primary {
+  box-shadow: 0 0 15px #ff2c2c, 0 0 30px #ff2c2c88;
+  background-color: #ff2c2c;
+  color: #fff;
+}
+.btn.secondary {
+  background-color: #444;
+  color: #fff;
+}
+.features-section {
+  padding: 3rem 1rem;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+.features-section h2 {
+  color: #ff2c2c;
+  margin-bottom: 2rem;
+}
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff2c2c99;
+}
+.card {
+  transition: transform 0.3s ease;
+  border: 1px solid #ff2c2c33;
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 44, 44, 0.2);
+}
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: #999;
+  border-top: 1px solid #222;
+}
+
+
+.join-discord {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1rem;
+  background: radial-gradient(circle at center, #150000 0%, #0b0b0b 100%);
+}
+.discord-card {
+  background: #111;
+  border: 2px solid #ff2c2c88;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 600px;
+  box-shadow: 0 0 25px #ff2c2c55;
+  animation: pulseGlow 2s infinite alternate;
+}
+.discord-card h2 {
+  color: #ff2c2c;
+  margin-top: 1rem;
+}
+.discord-card p {
+  color: #ccc;
+  margin: 1rem 0 2rem;
+}
+.btn-discord {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #ff2c2c;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 0 20px #ff2c2c88;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-discord:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #ff2c2c;
+}
+.discord-logo {
+  height: 160px;
+  filter: drop-shadow(0 0 15px #ff2c2c88);
+}
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 20px #ff2c2c88;
+  }
+  to {
+    box-shadow: 0 0 30px #ff0000cc;
+  }
+}
+
+
+#intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.glitch-text {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #ff2c2c;
+  text-shadow: 0 0 8px #ff2c2c, 0 0 16px #ff0000;
+  animation: glitch 1s infinite alternate;
+}
+@keyframes glitch {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-5px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+}
+.hidden {
+  display: none;
+}
