@@ -9,16 +9,14 @@ const userBlacklist = require('./data/user-blacklist.json');
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers, // pour détecter les entrées de membres
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildVoiceStates
+    GatewayIntentBits.MessageContent
   ]
 });
 
 client.commands = new Collection();
 
-// Chargement des commandes
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
@@ -27,16 +25,6 @@ for (const file of commandFiles) {
   }
 }
 
-// Chargement des events
-const eventFiles = fs.existsSync('./events') ? fs.readdirSync('./events').filter(file => file.endsWith('.js')) : [];
-for (const file of eventFiles) {
-  const event = require(`./events/${file}`);
-  if (event.name && typeof event.execute === 'function') {
-    client.on(event.name, (...args) => event.execute(...args, client));
-  }
-}
-
-// Lorsqu’un membre rejoint le serveur
 client.on('guildMemberAdd', async member => {
   const guildId = member.guild.id;
   const blacklistedUsers = userBlacklist.guilds[guildId] || [];
@@ -44,22 +32,19 @@ client.on('guildMemberAdd', async member => {
   if (blacklistedUsers.includes(member.id)) {
     try {
       await member.ban({ reason: 'Utilisateur blacklisté (Violator)' });
-      console.log(`🚫 ${member.user.tag} a été auto-banni du serveur ${member.guild.name}`);
+      console.log(`🚫 ${member.user.tag} a été auto-banni.`);
     } catch (err) {
-      console.error("❌ Impossible de bannir l'utilisateur :", err);
+      console.error("❌ Erreur lors du bannissement :", err);
     }
   }
 });
 
-// Lorsqu’un message est envoyé
 client.on('messageCreate', async message => {
   if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
 
-  const guildId = message.guild.id;
-  const blacklistedUsers = userBlacklist.guilds[guildId] || [];
-
+  const blacklistedUsers = userBlacklist.guilds[message.guild.id] || [];
   if (blacklistedUsers.includes(message.author.id)) {
-    return message.reply("🚫 Tu es blacklisté sur ce serveur. Tu ne peux pas utiliser ce bot.");
+    return message.reply("🚫 Tu es blacklisté sur ce serveur.");
   }
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -71,12 +56,12 @@ client.on('messageCreate', async message => {
     await command.execute(message, args, client);
   } catch (err) {
     console.error(err);
-    message.reply("💥 Une erreur violente est survenue. Violator est en rage !");
+    message.reply("💥 Une erreur est survenue !");
   }
 });
 
 client.once('ready', () => {
-  console.log(`🔥 Violator est prêt à frapper. Connecté en tant que ${client.user.tag}`);
+  console.log(`✅ Violator prêt en tant que ${client.user.tag}`);
 });
 
 client.login(process.env.TOKEN);

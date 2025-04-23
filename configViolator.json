@@ -1,9 +1,3 @@
-
 {
-  "antilien": true,
-  "antiraid": false,
-  "antibot": true,
-  "antiwebhook": false,
-  "botclean": false,
-  "autolock": false
+  "creatorId": "1154008138769518652"
 }
