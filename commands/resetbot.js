@@ -1,9 +1,15 @@
+const fs = require('fs');
 module.exports = {
-  name: "resetbot",
-  async execute(message, args, client) {
-    if (!message.member.permissions.has("Administrator")) return message.reply("🚫 T’as pas les couilles d’un admin.");
+  name: 'resetbot',
+  description: 'Redémarre le bot',
+  async execute(message, args) {
+    const owners = JSON.parse(fs.readFileSync('./owners.json')).owners;
+    if (!owners.includes(message.author.id)) {
+      return message.reply("🚫 Tu n’as pas la permission de redémarrer le bot.");
+    }
 
-    // LOGIQUE À COMPLÉTER POUR : resetbot
-    message.reply("✅ La commande `resetbot` a été reçue. À toi de jouer le bourreau !");
+    message.channel.send("♻️ Redémarrage du bot...").then(() => {
+      process.exit();
+    });
   }
 };
